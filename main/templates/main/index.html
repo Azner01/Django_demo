@@ -1,4 +1,5 @@
 {% extends 'main/base.html' %}
+{% load compress %}
 {% load static %}
 
 <!-- ================================
@@ -33,20 +34,20 @@ Start Content
 {% block content %}
 <section>
   <div class="bannerSection">
-    <div class="container">
-      <div class="row g-4 g-md-3  align-items-center">
-        <div class="col-md-auto order-md-last">
+    <div class="container p-4 px-5 mx-auto bg-indigo-100 border-4 border-indigo-500/100">
+      <div class="flex flex-wrap items-center gap-4 md:gap-3">
+        <div class="md:order-last">
           <div class="bannerUserImg">
             <img src="{{me.userprofile.avatar.url}}" alt="{{me.first_name|title}} {{me.last_name|title}} avatar">
           </div>
         </div>
-        <div class="col-md">
+        <div class="md:flex-1">
           <div class="bannerContent">
-            <h1 class="xlTitle pb-3">Hi, I’m {{me.first_name|title}}, <br> a {{me.userprofile.title}} </br></h1>
+            <h1 class="pb-3 xlTitle">Hi, I’m {{me.first_name|title}}, <br> a {{me.userprofile.title}} </br></h1>
             <p>{{me.userprofile.bio}}</p>
             <div class="bannerBtnCol">
-              <div class="row">
-                <div class="col-auto">
+              <div class="flex">
+                <div class="mr-2">
                   <a download href="{{me.userprofile.cv.url}}" class="btn btnPrimary">Download Resume</a>
                 </div>
                 <div class="col-auto">
@@ -62,12 +63,12 @@ Start Content
 </section>
 
 <section>
-  <div class="sectionSpace pt-0">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-auto">
+  <div class="pt-0 sectionSpace">
+    <div class="container mx-auto bg-indigo-100 border-4 border-indigo-500/100">
+      <div class="flex">
+        <div class="md:flex-shrink-0">
           <div class="keySkillCol">
-            <h4 class="smTitle pb-3">Key Skills</h4>
+            <h4 class="pb-3 smTitle">Key Skills</h4>
             {% for sk in me.userprofile.skills.all %}
             {% if sk.is_key_skill %}
             <div class="keySkillCard">
@@ -82,21 +83,21 @@ Start Content
             {% endfor %}
           </div>
         </div>
-        <div class="col-md">
-          <h4 class="smTitle pb-3">Coding Skills</h4>
+        <div class="md:flex-1">
+          <h4 class="pb-3 smTitle">Coding Skills</h4>
           <div class="progressCol">
             <div class="progressCard">
               {% for sk in me.userprofile.skills.all %}
               {% if sk.is_key_skill %}
               <div class="progressCol">
                 <span class="progressLbl">{{sk.name}}</span>
-                <div class="row g-2 align-items-center">
-                  <div class="col">
+                <div class="flex items-center gap-2">
+                  <div class="flex-1">
                     <div class="progress progressStyle">
                       <div class="progress-bar" role="progressbar" style="width: {{sk.score}}%" aria-valuenow="{{sk.score}}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                   </div>
-                  <div class="col-auto">
+                  <div class="flex-shrink-0">
                     <span class="pLbl">{{sk.score}}%</span>
                   </div>
                 </div>
@@ -114,9 +115,9 @@ Start Content
 
 <section>
   <div class="sectionSpaceSm lightBg">
-    <div class="container">
-      <div class="row pb-3">
-        <div class="col">
+    <div class="container mx-auto">
+      <div class="flex pb-3">
+        <div class="flex-1">
           <h4 class="smText regular">Certificates</h4>
         </div>
 
@@ -153,26 +154,26 @@ Start Content
 
 <section>
   <div class="sectionSpace">
-    <div class="container">
+    <div class="container mx-auto">
       <div class="portfolioCol">
-        <div class="row pb-3">
-          <div class="col">
+        <div class="flex pb-3">
+          <div class="flex-1">
             <h4 class="smText regular">Featured Work</h4>
           </div>
-          <div class="col-auto">
+          <div class="flex-shrink-0">
             <a href="{% url 'main:portfolios' %}" class="simpleLink">View all</a>
           </div>
         </div>
         {% for p in portfolio %}
         {% if p.is_active %}
         <div class="portfolioCard">
-          <div class="row g-4 align-items-center">
-            <div class="col-md-auto">
+          <div class="flex items-center gap-4">
+            <div class="md:flex-shrink-0">
               <div class="portfolioImgCol">
                 <a href="{% url 'main:portfolio' slug=p.slug %}"><img src="{{p.image.url}}" alt="..."></a>
               </div>
             </div>
-            <div class="col-md">
+            <div class="md:flex-1">
               <div class="portfolioContentCol">
                 <h4 class="lgTitle"><a href="{% url 'main:portfolio' slug=p.slug %}">{{p.name}}</a></h4>
                 <ul class="portfolioOption">
@@ -196,13 +197,13 @@ Start Content
               {% if t.is_active %}
               <div class="swiper-slide">
                 <div class="testimonialCard">
-                  <div class="row align-items-center">
-                    <div class="col-sm-auto">
+                  <div class="flex items-center">
+                    <div class="md:flex-shrink-0">
                       <div class="tImgCol">
                         <img src="{{t.thumbnail.url}}" alt="...">
                       </div>
                     </div>
-                    <div class="col-sm">
+                    <div class="flex-1">
                       <div class="tContentCol">
                         <h4 class="xsTitle bold">{{t.name}} - {{t.role}}</h4>
                         <p>{{t.quote}}</p>
@@ -228,19 +229,19 @@ Start Content
 
 <section>
   <div class="sectionSpaceSm lightBg">
-    <div class="container">
-      <div class="row pb-3">
-        <div class="col">
+    <div class="container mx-auto">
+      <div class="flex pb-3">
+        <div class="flex-1">
           <h4 class="smText regular">Recent posts</h4>
         </div>
-        <div class="col-auto">
+        <div class="flex-shrink-0">
           <a href="{% url 'main:blogs' %}" class="simpleLink">View all</a>
         </div>
       </div>
-      <div class="row g-3">
+      <div class="flex flex-wrap gap-3">
       {% for b in blogs %}
       {% if b.is_active %}
-        <div class="col-lg-6">
+        <div class="lg:w-1/2">
           <div class="cardStyle1">
             <h4 class="mdTitle cs1Title"><a href="{% url 'main:blog' slug=b.slug %}">{{b.name}}</a></h4>
             <ul class="cardOptionCol">
